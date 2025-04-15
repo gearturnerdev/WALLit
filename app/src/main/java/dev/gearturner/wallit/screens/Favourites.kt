@@ -23,11 +23,11 @@ import coil.compose.AsyncImage
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
+fun Favourites() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Wallit") },
+                title = { Text("Favourites") },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     titleContentColor = MaterialTheme.colorScheme.onPrimary)
@@ -64,7 +64,7 @@ fun HomeScreen() {
 }
 
 @Composable
-fun WallpaperCard(title: String, imageUrl: String) {
+fun WallpaperCard2(title: String, imageUrl: String) {
     Card(
         modifier = Modifier
             .fillMaxSize()
@@ -91,6 +91,6 @@ fun WallpaperCard(title: String, imageUrl: String) {
 
 @Preview(showBackground = true)
 @Composable
-fun HomeScreenPreview() {
-    HomeScreen()
+fun FavouritesPreview() {
+    Favourites()
 }
