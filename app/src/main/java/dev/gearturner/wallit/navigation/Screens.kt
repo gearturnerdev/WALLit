@@ -6,7 +6,6 @@ enum class Screens {
     DetailScreen,
     SettingsScreen,
     HelpScreen;
-
     // handle routes to make navigation easier
     companion object {
         fun fromRoute(route: String?): Screens
