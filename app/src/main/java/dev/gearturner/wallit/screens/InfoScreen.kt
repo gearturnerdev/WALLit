@@ -7,6 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -19,10 +20,14 @@ fun InfoScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .padding(24.dp)
             .background(MaterialTheme.colorScheme.background),
-        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(
+            text = "About WALLit",
+            style = MaterialTheme.typography.titleLarge
+        )
         Text(
             text = "Lorem ipsum dolor sit amet consectetur adipiscing elit. " +
                     "Elit quisque faucibus ex sapien vitae pellentesque sem. " +
@@ -30,7 +35,7 @@ fun InfoScreen() {
                     "Sed diam una tempor pulvinar vivamus fringilla lacus. Lacus nec metus bibendum egestas iaculis massa nisl. " +
                     "Nisl malesuada lacinia integer nunc posuere ut hendrerit.",
             modifier = Modifier
-                .padding(24.dp),
+                .padding(top = 256.dp),
             fontSize = 16.sp,
             color = Color.Black,
             textAlign = TextAlign.Center
