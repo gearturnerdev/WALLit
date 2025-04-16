@@ -1,5 +1,7 @@
 package dev.gearturner.wallit.screens
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,56 +21,55 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import dev.gearturner.wallit.navigation.Screens
+import dev.gearturner.wallit.ui.theme.WALLitTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen() {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("Wallit") },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimary)
+fun HomeScreen(
+    navController: NavController,
+    itemClick: () -> Unit = { navController.navigate(route = Screens.DetailScreen.name) }
+) {
+    LazyRow(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+            .padding(8.dp),
+    ) {
+        item {
+            WallpaperCard(
+                title = "Nature",
+                imageUrl = "https://picsum.photos/200/300?random=1",
+                onClick = itemClick
             )
-
         }
-    ) { innerPadding ->
-        LazyRow(
-            contentPadding = innerPadding,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp)
-        ) {
-            item {
-                WallpaperCard(
-                    title = "Nature",
-                    imageUrl = "https://picsum.photos/200/300?random=1"
-                )
-            }
-            item {
-                WallpaperCard(
-                    title = "Cityscape",
-                    imageUrl = "https://picsum.photos/200/300?random=2"
-                )
-            }
-            item {
-                WallpaperCard(
-                    title = "Mountains",
-                    imageUrl = "https://picsum.photos/200/300?random=3"
-                )
-            }
+        item {
+            WallpaperCard(
+                title = "Cityscape",
+                imageUrl = "https://picsum.photos/200/300?random=2",
+                onClick = itemClick
+            )
+        }
+        item {
+            WallpaperCard(
+                title = "Mountains",
+                imageUrl = "https://picsum.photos/200/300?random=3",
+                onClick = itemClick
+            )
         }
     }
 }
 
 @Composable
-fun WallpaperCard(title: String, imageUrl: String) {
+fun WallpaperCard(title: String, imageUrl: String, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxSize()
-            .padding(vertical = 8.dp),
+            .padding(vertical = 8.dp)
+            .clickable {
+                onClick()
+            },
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
     ) {
         Row(modifier = Modifier.padding(130.dp)) {
@@ -86,11 +87,4 @@ fun WallpaperCard(title: String, imageUrl: String) {
             )
         }
     }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen()
 }

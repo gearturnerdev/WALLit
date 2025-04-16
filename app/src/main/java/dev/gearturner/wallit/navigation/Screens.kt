@@ -5,7 +5,7 @@ enum class Screens {
     FavoritesScreen,
     DetailScreen,
     SettingsScreen,
-    HelpScreen;
+    InfoScreen;
     // handle routes to make navigation easier
     companion object {
         fun fromRoute(route: String?): Screens
@@ -14,7 +14,7 @@ enum class Screens {
             FavoritesScreen.name -> FavoritesScreen
             DetailScreen.name -> DetailScreen
             SettingsScreen.name -> SettingsScreen
-            HelpScreen.name -> HelpScreen
+            InfoScreen.name -> InfoScreen
             null -> HomeScreen
             else -> throw IllegalArgumentException("Route $route is not recognized")
         }
