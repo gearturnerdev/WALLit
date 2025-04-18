@@ -1,6 +1,5 @@
 package dev.gearturner.wallit.navigation
 
-import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -26,19 +25,16 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import dev.gearturner.wallit.WallItViewModel
 import dev.gearturner.wallit.screens.DetailScreen
 import dev.gearturner.wallit.screens.FavoritesScreen
 import dev.gearturner.wallit.screens.HomeScreen
@@ -100,16 +96,17 @@ fun NavBar(
 
 // navigation ui and logic
 @Composable
-fun WallItNavigation() {
+fun WallItNavigation(viewModel: WallItViewModel) {
     // track navigation and variables
     val navController = rememberNavController()
+    val viewModel = viewModel
     val currentBackStackEntry by navController.currentBackStackEntryAsState()
     val currentScreen = Screens.fromRoute(currentBackStackEntry?.destination?.route)
     val canNavigateBack = currentScreen == Screens.DetailScreen
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     val title = when(currentScreen) {
-        Screens.HomeScreen -> "WallIT"
+        Screens.HomeScreen -> "WALLit"
         Screens.DetailScreen -> "Wallpaper"
         Screens.FavoritesScreen -> "Favorites"
         Screens.InfoScreen -> "Info"
@@ -124,7 +121,7 @@ fun WallItNavigation() {
                 NavBar(
                     title = title,
                     canNavigateBack = canNavigateBack,
-                    navigateUp = { navController.navigateUp() },
+                    navigateUp = { navController.navigate(Screens.HomeScreen.name) },
                     modifier = Modifier,
                     onMenuClick = { scope.launch { drawerState.open() } },
 
@@ -146,16 +143,42 @@ fun WallItNavigation() {
                     .padding(innerPadding)
             ) {
                 composable(Screens.HomeScreen.name) {
-                    HomeScreen(navController = navController)
+                    LaunchedEffect(Unit) {
+                        if(viewModel.wallpapers.isEmpty()) {
+                            viewModel.loadWallpapers()
+                        }
+                    }
+                    if(viewModel.wallpapers.isEmpty()) {
+                        Text("Loading...")
+                    } else {
+                        HomeScreen(navController = navController, wallpapers = viewModel.wallpapers)
+                    }
                 }
 
                 composable(Screens.FavoritesScreen.name) {
-                    FavoritesScreen(navController = navController)
+                    LaunchedEffect(Unit) {
+                        if(viewModel.sampleWallpapers.isEmpty()) {
+                            viewModel.loadSampleWallpapers()
+                        }
+                    }
+                    if(viewModel.sampleWallpapers.isEmpty()) {
+                        Text("Loading...")
+                    } else {
+                        FavoritesScreen(navController = navController, wallpapers = viewModel.sampleWallpapers)
+                    }
                 }
 
                 // go to appropriate DetailScreen based on route
-                composable(Screens.DetailScreen.name) {
-                    DetailScreen(navController = navController)
+                composable("${Screens.DetailScreen.name}/{wallpaperId}") { navRequest ->
+                    val wallpaperId = navRequest.arguments?.getString("wallpaperId")
+                    var wallpaper = viewModel.wallpapers.find { it.id == wallpaperId }
+                        ?: viewModel.sampleWallpapers.find { it.id == wallpaperId }
+
+                    if (wallpaper != null) {
+                        DetailScreen(navController = navController, wallpaper = wallpaper)
+                    } else {
+                        Text("This text should not appear...Contact us at gearturnerdev@gmail.com to report this bug!")
+                    }
                 }
 
                 composable(Screens.SettingsScreen.name) {
