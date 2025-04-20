@@ -16,15 +16,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import dev.gearturner.wallit.WallItViewModel
 import dev.gearturner.wallit.model.Wallpaper
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(
     wallpaper: Wallpaper,
-    navController: NavController
+    navController: NavController,
+    viewModel: WallItViewModel
 ) {
     val imageUrl = "https://picsum.photos/id/${wallpaper.id}/1080/1920"
     val author = wallpaper.author
@@ -61,7 +64,7 @@ fun DetailScreen(
                         .padding(16.dp)
                 )
 
-                Button(onClick = { /* Add to favorites logic */ }) {
+                Button(onClick = { viewModel.addFavorite(wallpaper) }) {
                     Text("Add to Favorites")
                 }
             }
