@@ -22,7 +22,7 @@ abstract class WallItDatabase: RoomDatabase() {
                     "wallit_database"
                 ).build()
                 INSTANCE = instance
-                instance
+                return instance
             }
         }
     }

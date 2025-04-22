@@ -121,7 +121,7 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                 NavBar(
                     title = title,
                     canNavigateBack = canNavigateBack,
-                    navigateUp = { navController.navigate(Screens.HomeScreen.name) },
+                    navigateUp = { navController.navigateUp() },
                     modifier = Modifier,
                     onMenuClick = { scope.launch { drawerState.open() } },
 
@@ -158,13 +158,13 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                 composable(Screens.FavoritesScreen.name) {
                     LaunchedEffect(Unit) {
                         if(viewModel.sampleWallpapers.isEmpty()) {
-                            viewModel.loadSampleWallpapers()
+                            viewModel.loadFavorites()
                         }
                     }
-                    if(viewModel.sampleWallpapers.isEmpty()) {
-                        Text("Loading...")
+                    if(viewModel.favoriteWallpapers.isEmpty()) {
+                        Text("Add some favorites to get started!\nIf you have already added favorites, they will show soon...")
                     } else {
-                        FavoritesScreen(navController = navController, wallpapers = viewModel.sampleWallpapers)
+                        FavoritesScreen(navController = navController, wallpapers = viewModel.favoriteWallpapers)
                     }
                 }
 
@@ -172,10 +172,10 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                 composable("${Screens.DetailScreen.name}/{wallpaperId}") { navRequest ->
                     val wallpaperId = navRequest.arguments?.getString("wallpaperId")
                     var wallpaper = viewModel.wallpapers.find { it.id == wallpaperId }
-                        ?: viewModel.sampleWallpapers.find { it.id == wallpaperId }
+                        ?: viewModel.favoriteWallpapers.find { it.id == wallpaperId }
 
                     if (wallpaper != null) {
-                        DetailScreen(navController = navController, wallpaper = wallpaper)
+                        DetailScreen(viewModel = viewModel, wallpaper = wallpaper)
                     } else {
                         Text("This text should not appear...Contact us at gearturnerdev@gmail.com to report this bug!")
                     }

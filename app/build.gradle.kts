@@ -13,8 +13,8 @@ android {
         applicationId = "dev.gearturner.wallit"
         minSdk = 24
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.0b2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -52,10 +52,9 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.coil.compose)
-    implementation(libs.retrofit)
-    implementation("androidx.room:room-runtime:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")  //This will be needed for annotations
-    implementation("androidx.room:room-ktx:2.6.1") //This will support coroutines
+    implementation(libs.retrofit) //This will be needed for annotations
+    implementation(libs.androidx.room.ktx) //This will support coroutines
+    kapt("androidx.room:room-compiler:2.7.0")
     implementation(libs.converter.gson)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

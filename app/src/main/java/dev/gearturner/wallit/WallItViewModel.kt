@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import dev.gearturner.wallit.data.WallItDatabase
+import dev.gearturner.wallit.model.Favorite
 import dev.gearturner.wallit.model.Wallpaper
 import dev.gearturner.wallit.network.WallItApi
 import kotlinx.coroutines.launch
@@ -15,8 +16,8 @@ import kotlinx.coroutines.Dispatchers
 class WallItViewModel(application: Application): AndroidViewModel(application) {
     var wallpapers by mutableStateOf<List<Wallpaper>>(emptyList())
     var sampleWallpapers by mutableStateOf<List<Wallpaper>>(emptyList())
-    val favorites = mutableStateOf<Wallpaper>()
-
+    var favoriteWallpapers by mutableStateOf<List<Wallpaper>>(emptyList())
+    var favorited by mutableStateOf(false)
     private val favoriteDao = WallItDatabase.getDatabase(application).favoriteDao()
 
     fun loadWallpapers() {
@@ -33,43 +34,40 @@ class WallItViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
-    fun loadSampleWallpapers() {
+    fun loadFavorites() {
         viewModelScope.launch {
-            val wallpaperIds = listOf(0, 1, 2)
+            val favorites = favoriteDao.getAllFavorites()
 
-            val loadedWallpapers = wallpaperIds.mapNotNull {
+            val loadedFavorites = favorites.mapNotNull { fav ->
                 try {
-                    WallItApi.retrofitService.getWallpaperInfo(it)
+                    WallItApi.retrofitService.getWallpaperInfo(fav.api_id)
                 } catch (e: Exception) { null }
             }
-            sampleWallpapers = loadedWallpapers
-        }
-    }
-    fun loadFavorites() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val favs = favoriteDao.getAllFavorites()
-            val wallpaperList = favs.map {
-                Wallpaper(
-                    id = it.api_id.toString(),
-                    author = it.author,
-                    download_url = "https://picsum.photos/id/${it.api_id}/1080/1920",
-                    url = "",
-                    width = 0,
-                    height = 0
-                )
-            }
-            favorites.clear()
-            favorites.addAll(wallpaperList)
+            favoriteWallpapers = loadedFavorites
         }
     }
 
     fun addFavorite(wallpaper: Wallpaper) {
-        val favorite = Favorite(
-            api_id = wallpaper.id.toInt(),
-            author = wallpaper.author
-        )
         viewModelScope.launch(Dispatchers.IO) {
+            val favorite = Favorite(
+                api_id = wallpaper.id.toInt()
+            )
             favoriteDao.insertFavorite(favorite)
+        }
+    }
+
+    fun removeFavorite(wallpaper: Wallpaper) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val favorite = Favorite(
+                api_id = wallpaper.id.toInt()
+            )
+            favoriteDao.deleteFavorite(favorite)
+        }
+    }
+
+    fun isFavorite(wallpaper: Wallpaper) {
+        viewModelScope.launch {
+            favorited = favoriteDao.getFavorite(wallpaper.id.toInt()) != null
         }
     }
 }

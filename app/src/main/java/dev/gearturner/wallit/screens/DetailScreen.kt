@@ -1,5 +1,6 @@
 package dev.gearturner.wallit.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,6 +13,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,15 +27,21 @@ import coil.compose.AsyncImage
 import dev.gearturner.wallit.WallItViewModel
 import dev.gearturner.wallit.model.Wallpaper
 
+@SuppressLint("UnrememberedMutableState")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(
     wallpaper: Wallpaper,
-    navController: NavController,
     viewModel: WallItViewModel
 ) {
     val imageUrl = "https://picsum.photos/id/${wallpaper.id}/1080/1920"
     val author = wallpaper.author
+
+    LaunchedEffect(wallpaper.id) {
+        viewModel.isFavorite(wallpaper)
+    }
+
+    val isFavorite = viewModel.favorited
 
     Column(
         modifier = Modifier
@@ -64,8 +75,18 @@ fun DetailScreen(
                         .padding(16.dp)
                 )
 
-                Button(onClick = { viewModel.addFavorite(wallpaper) }) {
-                    Text("Add to Favorites")
+                Button(onClick = {
+                    if(isFavorite) {
+                        viewModel.removeFavorite(wallpaper)
+                        viewModel.favorited = false
+                    } else {
+                        viewModel.addFavorite(wallpaper)
+                        viewModel.favorited = true
+                    }
+                }) {
+                    Text(
+                        if (!isFavorite) "Add to Favorites" else "Remove from Favorites"
+                    )
                 }
             }
         }
