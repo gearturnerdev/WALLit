@@ -53,8 +53,9 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.coil.compose)
     implementation(libs.retrofit) //This will be needed for annotations
-    implementation(libs.androidx.room.ktx) //This will support coroutines
-    kapt("androidx.room:room-compiler:2.7.0")
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.accompanist.systemuicontroller)
+    kapt("androidx.room:room-compiler:2.7.1")
     implementation(libs.converter.gson)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

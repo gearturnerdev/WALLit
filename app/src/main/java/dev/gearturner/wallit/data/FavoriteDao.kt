@@ -1,7 +1,10 @@
 package dev.gearturner.wallit.data
 
-import androidx.room.*
 import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import dev.gearturner.wallit.model.Favorite
 
 @Dao

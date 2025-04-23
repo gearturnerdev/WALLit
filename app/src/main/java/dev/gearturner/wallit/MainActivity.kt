@@ -14,6 +14,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         setContent { // start app with ViewModel and the main WeatherNavigation composable
             val viewModel: WallItViewModel = viewModel()
             App { WallItNavigation(viewModel) }

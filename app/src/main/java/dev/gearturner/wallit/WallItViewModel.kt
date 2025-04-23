@@ -10,8 +10,8 @@ import dev.gearturner.wallit.data.WallItDatabase
 import dev.gearturner.wallit.model.Favorite
 import dev.gearturner.wallit.model.Wallpaper
 import dev.gearturner.wallit.network.WallItApi
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class WallItViewModel(application: Application): AndroidViewModel(application) {
     var wallpapers by mutableStateOf<List<Wallpaper>>(emptyList())

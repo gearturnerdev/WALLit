@@ -28,8 +28,8 @@ fun HomeScreen(
     LazyRow(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(8.dp),
+            .background(MaterialTheme.colorScheme.primaryContainer)
+            .padding(8.dp)
     ) {
         items(wallpapers) {
             val wallpaperId = it.id
