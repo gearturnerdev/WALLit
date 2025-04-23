@@ -65,7 +65,7 @@ fun NavBar(
             color = MaterialTheme.colorScheme.onPrimaryContainer
         ) },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
+            containerColor = Color(0xFF7CD3C5)
         ),
         actions = { // share button
             if(onShare != null) {
