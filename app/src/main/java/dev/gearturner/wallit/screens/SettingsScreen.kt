@@ -39,7 +39,6 @@ fun SettingsScreen() {
         ) {
             Button(
                 onClick = { useAltColor = !useAltColor },
-                colors = ButtonDefaults.buttonColors(containerColor = accentColor)
             ) {
                 Text("Toggle Accent Color")
             }

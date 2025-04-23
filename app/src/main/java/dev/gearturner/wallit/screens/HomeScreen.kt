@@ -13,6 +13,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -48,6 +49,9 @@ fun WallpaperCard(imageUrl: String, onClick: () -> Unit) {
             .width(360.dp)
             .padding(8.dp)
             .clickable { onClick() },
+        colors = CardDefaults.cardColors(
+            containerColor = Color(0xFFCFFFF9)
+        ),
         elevation = CardDefaults.cardElevation(defaultElevation = 5.dp)
     ) {
         AsyncImage(

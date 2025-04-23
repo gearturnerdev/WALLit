@@ -157,7 +157,13 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                         }
                     }
                     if(viewModel.wallpapers.isEmpty()) {
-                        Text("Loading...")
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(MaterialTheme.colorScheme.primaryContainer)
+                        ) {
+                            Text("Loading...")
+                        }
                     } else {
                         HomeScreen(navController = navController, wallpapers = viewModel.wallpapers)
                     }
@@ -170,7 +176,13 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                         }
                     }
                     if(viewModel.favoriteWallpapers.isEmpty()) {
-                        Text("Add some favorites to get started!\nIf you have already added favorites, they will show soon...")
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(MaterialTheme.colorScheme.primaryContainer)
+                        ) {
+                            Text("Add some favorites to get started!\n\nIf you have already added favorites, they will show soon...")
+                        }
                     } else {
                         FavoritesScreen(navController = navController, wallpapers = viewModel.favoriteWallpapers)
                     }
@@ -218,7 +230,8 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                             .clip(RoundedCornerShape(topEnd = 32.dp, bottomEnd = 32.dp))
                             .background(
                                 if (currentSelection == "Home") Color(0xFFCFFFF9) else Color.Transparent
-                            ).clickable {
+                            )
+                            .clickable {
                                 currentSelection = "Home"
                                 navController.navigate(Screens.HomeScreen.name)
                                 scope.launch { drawerState.close() }
@@ -238,7 +251,8 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                             .clip(RoundedCornerShape(topEnd = 32.dp, bottomEnd = 32.dp))
                             .background(
                                 if (currentSelection == "Favs") Color(0xFFCFFFF9) else Color.Transparent
-                            ).clickable {
+                            )
+                            .clickable {
                                 currentSelection = "Favs"
                                 navController.navigate(Screens.FavoritesScreen.name)
                                 scope.launch { drawerState.close() }
@@ -258,7 +272,8 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                             .clip(RoundedCornerShape(topEnd = 32.dp, bottomEnd = 32.dp))
                             .background(
                                 if (currentSelection == "Settings") Color(0xFFCFFFF9) else Color.Transparent
-                            ).clickable {
+                            )
+                            .clickable {
                                 currentSelection = "Settings"
                                 navController.navigate(Screens.SettingsScreen.name)
                                 scope.launch { drawerState.close() }
@@ -278,7 +293,8 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                             .clip(RoundedCornerShape(topEnd = 32.dp, bottomEnd = 32.dp))
                             .background(
                                 if (currentSelection == "Info") Color(0xFFCFFFF9) else Color.Transparent
-                            ).clickable {
+                            )
+                            .clickable {
                                 currentSelection = "Info"
                                 navController.navigate(Screens.InfoScreen.name)
                                 scope.launch { drawerState.close() }
