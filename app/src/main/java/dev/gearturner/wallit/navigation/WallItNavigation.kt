@@ -171,7 +171,7 @@ fun WallItNavigation(viewModel: WallItViewModel) {
 
                 composable(Screens.FavoritesScreen.name) {
                     LaunchedEffect(Unit) {
-                        if(viewModel.sampleWallpapers.isEmpty()) {
+                        if(viewModel.favoriteWallpapers.isEmpty()) {
                             viewModel.loadFavorites()
                         }
                     }

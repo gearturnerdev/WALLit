@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.retrofit) //This will be needed for annotations
     implementation(libs.androidx.room.ktx)
     implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.androidx.junit.ktx)
     kapt("androidx.room:room-compiler:2.7.1")
     implementation(libs.converter.gson)
     testImplementation(libs.junit)

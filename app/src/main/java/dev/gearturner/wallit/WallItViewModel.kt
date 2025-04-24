@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 
 class WallItViewModel(application: Application): AndroidViewModel(application) {
     var wallpapers by mutableStateOf<List<Wallpaper>>(emptyList())
-    var sampleWallpapers by mutableStateOf<List<Wallpaper>>(emptyList())
     var favoriteWallpapers by mutableStateOf<List<Wallpaper>>(emptyList())
     var favorited by mutableStateOf(false)
     private val favoriteDao = WallItDatabase.getDatabase(application).favoriteDao()
