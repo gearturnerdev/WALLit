@@ -1,6 +1,7 @@
 package dev.gearturner.wallit.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -10,10 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import dev.gearturner.wallit.R
 import dev.gearturner.wallit.ui.theme.WALLitTheme
 
 @Composable
@@ -23,22 +26,25 @@ fun InfoScreen() {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.primaryContainer)
             .padding(24.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
             text = "About WALLit",
-            style = MaterialTheme.typography.titleLarge
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            style = MaterialTheme.typography.titleLarge,
+            textAlign = TextAlign.Center
         )
         Text(
-            text = "Lorem ipsum dolor sit amet consectetur adipiscing elit. " +
-                    "Elit quisque faucibus ex sapien vitae pellentesque sem. " +
-                    "Sem placerat in id cursus mi pretium tellus. Tellus duis convallis tempus leo eu euismod sed. " +
-                    "Sed diam una tempor pulvinar vivamus fringilla lacus. Lacus nec metus bibendum egestas iaculis massa nisl. " +
-                    "Nisl malesuada lacinia integer nunc posuere ut hendrerit.",
-            modifier = Modifier
-                .padding(top = 256.dp),
-            fontSize = 16.sp,
-            color = Color.Black,
+            text = stringResource(R.string.wallit_info),
+            style = MaterialTheme.typography.bodyLarge,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            textAlign = TextAlign.Center
+        )
+        Text(
+            text = stringResource(R.string.copyright),
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
             textAlign = TextAlign.Center
         )
     }

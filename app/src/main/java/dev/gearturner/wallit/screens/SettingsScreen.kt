@@ -22,11 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun SettingsScreen() {
-    var useAltColor by remember { mutableStateOf(false) }
-
-    val accentColor = if (useAltColor) Color(0xFF1976D2) else Color(0xFF64B5F6)
-
+fun SettingsScreen(toggleAccent: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -38,7 +34,7 @@ fun SettingsScreen() {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
-                onClick = { useAltColor = !useAltColor },
+                onClick = toggleAccent
             ) {
                 Text("Toggle Accent Color")
             }
@@ -50,7 +46,7 @@ fun SettingsScreen() {
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 16.dp),
             fontSize = 14.sp,
-            color = Color.DarkGray
+            color = MaterialTheme.colorScheme.onPrimaryContainer
         )
     }
 }

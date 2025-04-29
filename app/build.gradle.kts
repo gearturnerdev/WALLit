@@ -13,8 +13,8 @@ android {
         applicationId = "dev.gearturner.wallit"
         minSdk = 24
         targetSdk = 35
-        versionCode = 2
-        versionName = "1.0b2"
+        versionCode = 1
+        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.androidx.junit.ktx)
+    implementation(libs.androidx.material.icons.extended)
     kapt("androidx.room:room-compiler:2.7.1")
     implementation(libs.converter.gson)
     testImplementation(libs.junit)

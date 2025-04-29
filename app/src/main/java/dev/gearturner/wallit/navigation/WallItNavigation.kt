@@ -1,5 +1,7 @@
 package dev.gearturner.wallit.navigation
 
+import android.content.Intent
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -36,6 +38,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -53,6 +56,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun NavBar(
     title: String,
+    containerColor: Color,
     canNavigateBack: Boolean,
     navigateUp: () -> Unit,
     onMenuClick: (() -> Unit)? = null,
@@ -65,7 +69,7 @@ fun NavBar(
             color = MaterialTheme.colorScheme.onPrimaryContainer
         ) },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
-            containerColor = Color(0xFF7CD3C5)
+            containerColor = containerColor
         ),
         actions = { // share button
             if(onShare != null) {
@@ -121,6 +125,13 @@ fun WallItNavigation(viewModel: WallItViewModel) {
         else -> "This text should not appear..."
     }
     var currentSelection by remember { mutableStateOf("Home") }
+    val context = LocalContext.current
+    val defaultAccentColor = Color(0xFF7CD3C5)
+    val altAccentColor = MaterialTheme.colorScheme.primaryContainer
+    var accentColor by remember { mutableStateOf(defaultAccentColor) }
+    val toggleAccentColor = {
+        accentColor = if(accentColor == defaultAccentColor) altAccentColor else defaultAccentColor
+    }
 
     // Scaffold that surrounds the screens, contains TopAppBar
     val scaffoldBody = @Composable {
@@ -128,6 +139,7 @@ fun WallItNavigation(viewModel: WallItViewModel) {
             topBar = {
                 NavBar(
                     title = title,
+                    containerColor = accentColor,
                     canNavigateBack = canNavigateBack,
                     navigateUp = { navController.navigateUp() },
                     modifier = Modifier,
@@ -136,7 +148,12 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                     // share logic
                     onShare = if(currentScreen == Screens.DetailScreen) {
                         {
-                            // TODO: share logic
+                            val intent = Intent(Intent.ACTION_SEND).apply {
+                                type = "text/plain"
+                                putExtra(Intent.EXTRA_SUBJECT, "Check out this awesome wallpaper I found on WALLit!")
+                                putExtra(Intent.EXTRA_TEXT, "https://picsum.photos/id/${currentBackStackEntry?.arguments?.getString("wallpaperId")}/1080/1920")
+                            }
+                            context.startActivity(Intent.createChooser(intent, "Share via"))
                         }
                     } else null
                 )
@@ -170,11 +187,14 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                 }
 
                 composable(Screens.FavoritesScreen.name) {
-                    LaunchedEffect(Unit) {
-                        if(viewModel.favoriteWallpapers.isEmpty()) {
+                    LaunchedEffect(viewModel.favoritesNeedRefresh) {
+                        if(viewModel.favoritesNeedRefresh) {
+                            viewModel.favoritesNeedRefresh = false
+                            Log.d("letest", "ran")
                             viewModel.loadFavorites()
                         }
                     }
+
                     if(viewModel.favoriteWallpapers.isEmpty()) {
                         Box(
                             modifier = Modifier
@@ -202,7 +222,7 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                 }
 
                 composable(Screens.SettingsScreen.name) {
-                    SettingsScreen()
+                    SettingsScreen(toggleAccentColor)
                 }
 
                 composable(Screens.InfoScreen.name) {

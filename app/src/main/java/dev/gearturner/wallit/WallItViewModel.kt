@@ -18,6 +18,7 @@ class WallItViewModel(application: Application): AndroidViewModel(application) {
     var favoriteWallpapers by mutableStateOf<List<Wallpaper>>(emptyList())
     var favorited by mutableStateOf(false)
     private val favoriteDao = WallItDatabase.getDatabase(application).favoriteDao()
+    var favoritesNeedRefresh by mutableStateOf(true)
 
     fun loadWallpapers() {
         viewModelScope.launch {
