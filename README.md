@@ -1,6 +1,6 @@
 # WALLit
 
-![logo](https://github.com/user-attachments/assets/bc9b6719-0cd2-484e-8d85-6d4062371408)
+<img src="https://github.com/user-attachments/assets/bc9b6719-0cd2-484e-8d85-6d4062371408" width=300>
 
 ## WALLit is the wallpaper hub.
 All the customization. None of the hassle. WALLit is your one-stop shop for incredible wallpapers that just work.
