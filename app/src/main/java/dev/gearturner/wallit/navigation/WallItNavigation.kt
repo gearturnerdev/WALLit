@@ -39,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -66,7 +67,8 @@ fun NavBar(
     TopAppBar(
         title = { Text(
             text = title,
-            color = MaterialTheme.colorScheme.onPrimaryContainer
+            color = MaterialTheme.colorScheme.onPrimaryContainer,
+            modifier = Modifier.testTag("screen_title")
         ) },
         colors = TopAppBarDefaults.mediumTopAppBarColors(
             containerColor = containerColor
@@ -93,7 +95,7 @@ fun NavBar(
                     )
                 }
             } else if(onMenuClick != null) { // hamburger menu otherwise
-                IconButton(onClick = onMenuClick) {
+                IconButton(onClick = onMenuClick, modifier = Modifier.testTag("drawer_open")) {
                     Icon(
                         imageVector = Icons.Default.Menu,
                         tint = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -255,7 +257,8 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                                 currentSelection = "Home"
                                 navController.navigate(Screens.HomeScreen.name)
                                 scope.launch { drawerState.close() }
-                            },
+                            }
+                            .testTag("drawer_home"),
                         contentAlignment = Alignment.CenterStart
                     ) {
                         Text(
@@ -276,7 +279,8 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                                 currentSelection = "Favs"
                                 navController.navigate(Screens.FavoritesScreen.name)
                                 scope.launch { drawerState.close() }
-                            },
+                            }
+                            .testTag("drawer_favs"),
                         contentAlignment = Alignment.CenterStart
                     ) {
                         Text(
@@ -297,7 +301,8 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                                 currentSelection = "Settings"
                                 navController.navigate(Screens.SettingsScreen.name)
                                 scope.launch { drawerState.close() }
-                            },
+                            }
+                            .testTag("drawer_settings"),
                         contentAlignment = Alignment.CenterStart
                     ) {
                         Text(
@@ -318,7 +323,8 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                                 currentSelection = "Info"
                                 navController.navigate(Screens.InfoScreen.name)
                                 scope.launch { drawerState.close() }
-                            },
+                            }
+                            .testTag("drawer_info"),
                         contentAlignment = Alignment.CenterStart
                     ) {
                         Text(
