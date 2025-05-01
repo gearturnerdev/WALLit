@@ -17,6 +17,8 @@ import androidx.compose.ui.unit.dp
 import dev.gearturner.wallit.R
 import dev.gearturner.wallit.ui.theme.WALLitTheme
 
+
+//Info screen that displays static information about the app
 @Composable
 fun InfoScreen() {
     Column(

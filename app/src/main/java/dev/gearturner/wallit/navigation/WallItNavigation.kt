@@ -85,7 +85,7 @@ fun NavBar(
             }
         },
         modifier = modifier,
-        navigationIcon = { // show back button if not on HomeScreen
+        navigationIcon = { //show back button if not on HomeScreen
             if(canNavigateBack) {
                 IconButton(onClick = navigateUp) {
                     Icon(
@@ -94,7 +94,7 @@ fun NavBar(
                         contentDescription = null
                     )
                 }
-            } else if(onMenuClick != null) { // hamburger menu otherwise
+            } else if(onMenuClick != null) { //hamburger menu otherwise
                 IconButton(onClick = onMenuClick, modifier = Modifier.testTag("drawer_open")) {
                     Icon(
                         imageVector = Icons.Default.Menu,

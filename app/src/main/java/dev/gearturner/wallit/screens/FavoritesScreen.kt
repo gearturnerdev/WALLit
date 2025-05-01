@@ -13,11 +13,13 @@ import androidx.navigation.NavController
 import dev.gearturner.wallit.model.Wallpaper
 import dev.gearturner.wallit.navigation.Screens
 
+//Composable that displays a horizontal list of favorited wallpapers
 @Composable
 fun FavoritesScreen(
-    navController: NavController,
-    wallpapers: List<Wallpaper>,
+    navController: NavController,  //NavController used for screen navigation
+    wallpapers: List<Wallpaper>,   //List of favorited wallpaper objects
 ) {
+    //LazyRow efficiently displays a scrollable horizontal list
     LazyRow(
         modifier = Modifier
             .fillMaxSize()

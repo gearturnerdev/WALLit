@@ -21,10 +21,11 @@ import coil.compose.AsyncImage
 import dev.gearturner.wallit.model.Wallpaper
 import dev.gearturner.wallit.navigation.Screens
 
+//Composable function for the Home screen that displays a horizontal list of wallpapers
 @Composable
 fun HomeScreen(
-    navController: NavController,
-    wallpapers: List<Wallpaper>,
+    navController: NavController,  //Used to navigate to other screens
+    wallpapers: List<Wallpaper>,   //List of wallpapers to display
 ) {
     LazyRow(
         modifier = Modifier
@@ -32,6 +33,7 @@ fun HomeScreen(
             .background(MaterialTheme.colorScheme.primaryContainer)
             .padding(8.dp)
     ) {
+        //Iterate through the list and display each wallpaper in a card
         items(wallpapers) {
             val wallpaperId = it.id
             WallpaperCard(imageUrl = "https://picsum.photos/id/${wallpaperId}/1080/1920") {

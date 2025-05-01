@@ -36,23 +36,29 @@ import coil.compose.AsyncImage
 import dev.gearturner.wallit.WallItViewModel
 import dev.gearturner.wallit.model.Wallpaper
 
-@SuppressLint("UnrememberedMutableState")
+@SuppressLint("UnrememberedMutableState") //Suppresses warning about not using remember in favorited state
 @Composable
 fun DetailScreen(
-    wallpaper: Wallpaper,
-    viewModel: WallItViewModel
+    wallpaper: Wallpaper,  //The selected wallpaper to display
+    viewModel: WallItViewModel  //ViewModel for managing favorites and state
 ) {
+    //Construct high-resolution image URL
     val imageUrl = "https://picsum.photos/id/${wallpaper.id}/1080/1920"
     val author = wallpaper.author
 
+    //Check if the current wallpaper is in favorites when the screen loads
     LaunchedEffect(wallpaper.id) {
         viewModel.isFavorite(wallpaper)
     }
+
+    //Current favorite state for the wallpaper
     val isFavorite = viewModel.favorited
 
+    //Get context to use for download manager
     val context = LocalContext.current
     val fileName = "WALLit_${wallpaper.id}.jpg"
 
+    //Main column container for screen layout
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -60,6 +66,8 @@ fun DetailScreen(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        //Card container for content styling and elevation
         Card(
             modifier = Modifier
                 .fillMaxSize(),
@@ -74,6 +82,7 @@ fun DetailScreen(
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                //Display the wallpaper image using Coil's AsyncImage
                 AsyncImage(
                     model = imageUrl,
                     contentDescription = null,
@@ -81,6 +90,8 @@ fun DetailScreen(
                         .width(340.dp)
                         .clip(MaterialTheme.shapes.medium)
                 )
+
+                //Display the author's name
                 Text(
                     text = "Author: $author",
                     style = MaterialTheme.typography.headlineSmall,
@@ -112,6 +123,7 @@ fun DetailScreen(
                         )
                     }
 
+                    //Button button using Android's DownloadManager
                     Button(onClick = {
                         val request = DownloadManager.Request(Uri.parse(imageUrl)).apply {
                             setTitle("Downloading wallpaper...")
@@ -122,6 +134,7 @@ fun DetailScreen(
                             setAllowedOverRoaming(true)
                         }
 
+                        //Enqueue the download request
                         val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
                         downloadManager.enqueue(request)
                     }) {
