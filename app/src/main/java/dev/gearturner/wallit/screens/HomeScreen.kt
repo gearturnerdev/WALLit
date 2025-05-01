@@ -1,3 +1,9 @@
+/*
+authors: Hunter Pageau and MD Fayed bin Salim
+version: 1 May 2025
+display list of wallpapers fetched from API
+ */
+
 package dev.gearturner.wallit.screens
 
 import androidx.compose.foundation.background
@@ -21,7 +27,6 @@ import coil.compose.AsyncImage
 import dev.gearturner.wallit.model.Wallpaper
 import dev.gearturner.wallit.navigation.Screens
 
-//Composable function for the Home screen that displays a horizontal list of wallpapers
 @Composable
 fun HomeScreen(
     navController: NavController,  //Used to navigate to other screens
@@ -37,7 +42,7 @@ fun HomeScreen(
         items(wallpapers) {
             val wallpaperId = it.id
             WallpaperCard(imageUrl = "https://picsum.photos/id/${wallpaperId}/1080/1920") {
-                navController.navigate(route = Screens.DetailScreen.name + "/$wallpaperId")
+                navController.navigate(route = Screens.DetailScreen.name + "/$wallpaperId") //navigate to appropriate DetailScreen
             }
         }
     }

@@ -1,3 +1,9 @@
+/*
+authors: Hunter Pageau and MD Fayed bin Salim
+version: 1 May 2025
+display app settings
+ */
+
 package dev.gearturner.wallit.screens
 
 import androidx.compose.foundation.background
@@ -15,13 +21,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-//Composable for the Settings screen
-//Accepts a function parameter `toggleAccent` to toggle the app's accent color
 @Composable
 fun SettingsScreen(toggleAccent: () -> Unit) {
     Box(
         modifier = Modifier
-            .fillMaxSize()  //Occupies the full screen
+            .fillMaxSize()
             .background(MaterialTheme.colorScheme.primaryContainer)
     ) {
         Column(
@@ -36,7 +40,6 @@ fun SettingsScreen(toggleAccent: () -> Unit) {
             }
         }
 
-        //Footer text displayed at the bottom of the screen
         Text(
             text = "More coming soon...",
             modifier = Modifier

@@ -1,3 +1,9 @@
+/*
+authors: Hunter Pageau and MD Fayed bin Salim
+version: 1 May 2025
+display app info
+ */
+
 package dev.gearturner.wallit.screens
 
 import androidx.compose.foundation.background
@@ -12,13 +18,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.gearturner.wallit.R
-import dev.gearturner.wallit.ui.theme.WALLitTheme
 
-
-//Info screen that displays static information about the app
 @Composable
 fun InfoScreen() {
     Column(
@@ -47,13 +49,5 @@ fun InfoScreen() {
             color = MaterialTheme.colorScheme.onPrimaryContainer,
             textAlign = TextAlign.Center
         )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun AboutScreenPreview() {
-    WALLitTheme {
-        InfoScreen()
     }
 }

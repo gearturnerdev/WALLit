@@ -1,6 +1,11 @@
+/*
+authors: Hunter Pageau and MD Fayed bin Salim
+version: 1 May 2025
+enum class to define all navigation destinations/screens in the app
+ */
+
 package dev.gearturner.wallit.navigation
 
-//Enum class to define all navigation destinations/screens in the app
 enum class Screens {
     HomeScreen,
     FavoritesScreen,

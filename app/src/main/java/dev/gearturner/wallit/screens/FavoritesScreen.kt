@@ -1,3 +1,9 @@
+/*
+authors: Hunter Pageau and MD Fayed bin Salim
+version: 1 May 2025
+display list of favorited wallpapers
+ */
+
 package dev.gearturner.wallit.screens
 
 import androidx.compose.foundation.background
@@ -13,13 +19,12 @@ import androidx.navigation.NavController
 import dev.gearturner.wallit.model.Wallpaper
 import dev.gearturner.wallit.navigation.Screens
 
-//Composable that displays a horizontal list of favorited wallpapers
+//horizontal list of favorited wallpapers
 @Composable
 fun FavoritesScreen(
     navController: NavController,  //NavController used for screen navigation
     wallpapers: List<Wallpaper>,   //List of favorited wallpaper objects
 ) {
-    //LazyRow efficiently displays a scrollable horizontal list
     LazyRow(
         modifier = Modifier
             .fillMaxSize()
@@ -29,7 +34,7 @@ fun FavoritesScreen(
         items(wallpapers) {
             val wallpaperId = it.id
             WallpaperCard(imageUrl = "https://picsum.photos/id/${wallpaperId}/1080/1920") {
-                navController.navigate(route = Screens.DetailScreen.name + "/$wallpaperId")
+                navController.navigate(route = Screens.DetailScreen.name + "/$wallpaperId") //navigate to appropriate DetailScreen
             }
         }
     }

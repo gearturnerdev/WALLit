@@ -1,7 +1,12 @@
+/*
+authors: Hunter Pageau and MD Fayed bin Salim
+version: 1 May 2025
+functions to handle navigation, implement TopAppBar, contain app body
+ */
+
 package dev.gearturner.wallit.navigation
 
 import android.content.Intent
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -181,7 +186,7 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                                 .fillMaxSize()
                                 .background(MaterialTheme.colorScheme.primaryContainer)
                         ) {
-                            Text("Loading...")
+                            Text("Loading...") //loading message only shows if the API call hasn't been completed yet
                         }
                     } else {
                         HomeScreen(navController = navController, wallpapers = viewModel.wallpapers)
@@ -192,7 +197,6 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                     LaunchedEffect(viewModel.favoritesNeedRefresh) {
                         if(viewModel.favoritesNeedRefresh) {
                             viewModel.favoritesNeedRefresh = false
-                            Log.d("letest", "ran")
                             viewModel.loadFavorites()
                         }
                     }
@@ -203,6 +207,7 @@ fun WallItNavigation(viewModel: WallItViewModel) {
                                 .fillMaxSize()
                                 .background(MaterialTheme.colorScheme.primaryContainer)
                         ) {
+                            //fallback message only shows if API call hasn't been completed yet or no favorites
                             Text("Add some favorites to get started!\n\nIf you have already added favorites, they will show soon...")
                         }
                     } else {

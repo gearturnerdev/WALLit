@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import dev.gearturner.wallit.navigation.WallItNavigation
 import dev.gearturner.wallit.ui.theme.WALLitTheme
@@ -15,7 +14,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        setContent { // start app with ViewModel and the main WeatherNavigation composable
+        setContent { // start app with ViewModel and the main WallItNavigation composable
             val viewModel: WallItViewModel = viewModel()
             App { WallItNavigation(viewModel) }
         }
@@ -27,11 +26,4 @@ fun App(content: @Composable () -> Unit) {
     WALLitTheme {
         content()
     }
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun AppPreview() {
-    val viewModel: WallItViewModel = viewModel()
-    App { WallItNavigation(viewModel) }
 }

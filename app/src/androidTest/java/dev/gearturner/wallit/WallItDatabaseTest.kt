@@ -1,3 +1,9 @@
+/*
+authors: Hunter Pageau and MD Fayed bin Salim
+version: 1 May 2025
+JUnit test for database
+ */
+
 package dev.gearturner.wallit
 
 import android.content.Context
@@ -21,6 +27,7 @@ class WallItDatabaseTest {
     private lateinit var db: WallItDatabase
     private lateinit var favoriteDao: FavoriteDao
 
+    //initialize database in memory
     @Before
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
@@ -29,12 +36,14 @@ class WallItDatabaseTest {
         favoriteDao = db.favoriteDao()
     }
 
+    //close the database
     @After
     @Throws(IOException::class)
     fun closeDb() {
         db.close()
     }
 
+    //adds wallpaper with id 123 as favorite, retrieves favorite with id 123, compares to the original object's id, test passes if they match
     @Test
     @Throws(Exception::class)
     fun writeAndReadFavorite() = runBlocking {

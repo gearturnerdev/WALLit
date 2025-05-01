@@ -1,3 +1,9 @@
+/*
+authors: Hunter Pageau and MD Fayed bin Salim
+version: 1 May 2025
+database to hold wallpapers marked as favorite
+ */
+
 package dev.gearturner.wallit.data
 
 import android.content.Context

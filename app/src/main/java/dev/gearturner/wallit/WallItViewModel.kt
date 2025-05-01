@@ -1,3 +1,9 @@
+/*
+authors: Hunter Pageau and MD Fayed bin Salim
+version: 1 May 2025
+ViewModel that manages changing data
+ */
+
 package dev.gearturner.wallit
 
 import android.app.Application
@@ -20,6 +26,7 @@ class WallItViewModel(application: Application): AndroidViewModel(application) {
     private val favoriteDao = WallItDatabase.getDatabase(application).favoriteDao()
     var favoritesNeedRefresh by mutableStateOf(true)
 
+    //loads 25 random wallpapers from API
     fun loadWallpapers() {
         viewModelScope.launch {
             val wallpaperIds = (0..1084).toList()
@@ -34,6 +41,7 @@ class WallItViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    //loads favorited wallpapers from database
     fun loadFavorites() {
         viewModelScope.launch {
             val favorites = favoriteDao.getAllFavorites()
@@ -47,6 +55,7 @@ class WallItViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    //adds favorite to database
     fun addFavorite(wallpaper: Wallpaper) {
         viewModelScope.launch(Dispatchers.IO) {
             val favorite = Favorite(
@@ -56,6 +65,7 @@ class WallItViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    //removes favorite from database
     fun removeFavorite(wallpaper: Wallpaper) {
         viewModelScope.launch(Dispatchers.IO) {
             val favorite = Favorite(
@@ -65,6 +75,7 @@ class WallItViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    //checks if the passed wallpaper is a favorite
     fun isFavorite(wallpaper: Wallpaper) {
         viewModelScope.launch {
             favorited = favoriteDao.getFavorite(wallpaper.id.toInt()) != null

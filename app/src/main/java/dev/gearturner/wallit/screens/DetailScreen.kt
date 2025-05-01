@@ -1,3 +1,9 @@
+/*
+authors: Hunter Pageau and MD Fayed bin Salim
+version: 1 May 2025
+display info and functions for selected wallpaper
+ */
+
 package dev.gearturner.wallit.screens
 
 import android.annotation.SuppressLint
@@ -36,13 +42,12 @@ import coil.compose.AsyncImage
 import dev.gearturner.wallit.WallItViewModel
 import dev.gearturner.wallit.model.Wallpaper
 
-@SuppressLint("UnrememberedMutableState") //Suppresses warning about not using remember in favorited state
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun DetailScreen(
     wallpaper: Wallpaper,  //The selected wallpaper to display
     viewModel: WallItViewModel  //ViewModel for managing favorites and state
 ) {
-    //Construct high-resolution image URL
     val imageUrl = "https://picsum.photos/id/${wallpaper.id}/1080/1920"
     val author = wallpaper.author
 
@@ -58,7 +63,7 @@ fun DetailScreen(
     val context = LocalContext.current
     val fileName = "WALLit_${wallpaper.id}.jpg"
 
-    //Main column container for screen layout
+    //screen layout
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -66,8 +71,6 @@ fun DetailScreen(
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        //Card container for content styling and elevation
         Card(
             modifier = Modifier
                 .fillMaxSize(),
@@ -82,7 +85,6 @@ fun DetailScreen(
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                //Display the wallpaper image using Coil's AsyncImage
                 AsyncImage(
                     model = imageUrl,
                     contentDescription = null,
@@ -91,7 +93,6 @@ fun DetailScreen(
                         .clip(MaterialTheme.shapes.medium)
                 )
 
-                //Display the author's name
                 Text(
                     text = "Author: $author",
                     style = MaterialTheme.typography.headlineSmall,
@@ -123,7 +124,7 @@ fun DetailScreen(
                         )
                     }
 
-                    //Button button using Android's DownloadManager
+                    //Download button using DownloadManager
                     Button(onClick = {
                         val request = DownloadManager.Request(Uri.parse(imageUrl)).apply {
                             setTitle("Downloading wallpaper...")

@@ -1,3 +1,9 @@
+/*
+authors: Hunter Pageau and MD Fayed bin Salim
+version: 1 May 2025
+interface and functions to work with Picsum API
+ */
+
 package dev.gearturner.wallit.network
 
 import dev.gearturner.wallit.model.Wallpaper
@@ -15,17 +21,14 @@ private val retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)  //Sets the base URL for all API endpoints
     .build()
 
-//Retrofit service interface defining the API endpoints
+//Retrofit service
 interface WallItApiService {
-
-    //GET request to "https://picsum.photos/id/{imageId}/info"
     //Returns detailed info about a wallpaper with the given ID
     @GET("id/{imageId}/info")
     suspend fun getWallpaperInfo(@Path("imageId") imageId: Int): Wallpaper
 }
 
-//Singleton object exposing the API service
-//'retrofitService' is lazily initialized the first time it is accessed
+//object exposing the API service
 object WallItApi {
     val retrofitService: WallItApiService by lazy {
         retrofit.create(WallItApiService::class.java)

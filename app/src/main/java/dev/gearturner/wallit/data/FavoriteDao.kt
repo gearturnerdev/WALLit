@@ -1,3 +1,9 @@
+/*
+authors: Hunter Pageau and MD Fayed bin Salim
+version: 1 May 2025
+database access object for WallItDatabase
+ */
+
 package dev.gearturner.wallit.data
 
 import androidx.room.Dao
@@ -7,10 +13,8 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import dev.gearturner.wallit.model.Favorite
 
-//DAO (Data Access Object) for Room Database
 @Dao
 interface FavoriteDao{
-
     //Inserts a Favorite into the database
     //If the entry already exists with the same primary key, it will be replaced
     @Insert(onConflict = OnConflictStrategy.REPLACE)
